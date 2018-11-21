@@ -1,4 +1,7 @@
-REMOTE_REPO=liabifano
+REMOTE_REPO?=liabifano
+DOCKER_NAME=executor
+DOCKER_LABEL=latest
+GIT_MASTER_HEAD_SHA:=$(shell git rev-parse --short=7 --verify HEAD)
 
 help:
 	@echo "build-local"
@@ -6,16 +9,15 @@ help:
 	@echo "test"
 
 
-build-local:
-	@docker build -t  ${REMOTE_REPO}/executor .
 
+build:
+	@docker build -t ${REMOTE_REPO}/${DOCKER_NAME}:${DOCKER_LABEL} .
+	@docker tag ${REMOTE_REPO}/${DOCKER_NAME}:${DOCKER_LABEL} ${REMOTE_REPO}/${DOCKER_NAME}:${GIT_MASTER_HEAD_SHA}
 
-build-and-push:
+push:
+	@docker tag ${REMOTE_REPO}/${DOCKER_NAME}:${DOCKER_LABEL} ${REMOTE_REPO}/${DOCKER_NAME}:${GIT_MASTER_HEAD_SHA}
 	@docker login --username=${DOCKER_USER} --password=${DOCKER_PASS} 2> /dev/null
-	@docker build -t ${REMOTE_REPO}/executor .
-	@docker push ${REMOTE_REPO}/executor
+	@docker push ${REMOTE_REPO}/${DOCKER_NAME}:${GIT_MASTER_HEAD_SHA}
 
 
-test: build-local
-	-@docker run ${REMOTE_REPO}/executor /bin/bash -c "cd executor; py.test --verbose --color=yes"
-	@docker rmi -f ${REMOTE_REPO}/executor
+# -@docker run ${REMOTE_REPO}/executor /bin/bash -c "cd executor; py.test --verbose --color=yes"
