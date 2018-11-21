@@ -16,7 +16,7 @@ build:
 
 push:
 	@docker tag ${REMOTE_REPO}/${DOCKER_NAME}:${DOCKER_LABEL} ${REMOTE_REPO}/${DOCKER_NAME}:${GIT_MASTER_HEAD_SHA}
-	@docker login --username=${DOCKER_USER} --password=${DOCKER_PASS} 2> /dev/null
+	@echo "${DOCKER_PASS}" | docker login -u="${DOCKER_USER}" --password-stdin
 	@docker push ${REMOTE_REPO}/${DOCKER_NAME}:${GIT_MASTER_HEAD_SHA}
 
 
