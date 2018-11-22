@@ -12,9 +12,8 @@ make build
 ```
 
 
-
-### To build image and push to remote repository
-You must have $DOCKER_USERNAME and $DOCKER_PASSWORD available in the environment
+### To push the image
+You must have `DOCKER_USERNAME` and `DOCKER_PASSWORD` available in the environment.
 ```bash
-make build
+make push
 ```
