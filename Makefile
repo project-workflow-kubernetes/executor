@@ -15,8 +15,6 @@ build:
 
 push:
 	@docker tag ${REMOTE_REPO}/${DOCKER_NAME}:${DOCKER_LABEL} ${REMOTE_REPO}/${DOCKER_NAME}:${GIT_MASTER_HEAD_SHA}
+	@docker run ${REMOTE_REPO}/${DOCKER_NAME}:${GIT_MASTER_HEAD_SHA} /bin/bash -c "cd executor; py.test --verbose --color=yes"
 	@echo "${DOCKER_PASSWORD}" | docker login -u="${DOCKER_USERNAME}" --password-stdin
 	@docker push ${REMOTE_REPO}/${DOCKER_NAME}:${GIT_MASTER_HEAD_SHA}
-
-
-# -@docker run ${REMOTE_REPO}/executor /bin/bash -c "cd executor; py.test --verbose --color=yes"
