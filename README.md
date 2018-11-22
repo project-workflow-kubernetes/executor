@@ -1,3 +1,6 @@
+[![Build Status](http://img.shields.io/travis/liabifano/ml-aws.svg?style=flat)](https://travis-ci.com/project-workflow-kubernetes/executor)
+
+
 # executor
 
 Repository that contains the necessary information to build the image base for the jobs.
@@ -5,13 +8,13 @@ Repository that contains the necessary information to build the image base for t
 
 ### To build image locally
 ```bash
-make build-local
+make build
 ```
 
 
 
 ### To build image and push to remote repository
-You must have $DOCKER_USER and $DOCKER_PASS available in the environment
+You must have $DOCKER_USERNAME and $DOCKER_PASSWORD available in the environment
 ```bash
-make build-and-push
+make build
 ```
