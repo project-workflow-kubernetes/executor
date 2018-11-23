@@ -3,6 +3,7 @@ DOCKER_NAME=executor
 DOCKER_LABEL=latest
 GIT_MASTER_HEAD_SHA:=$(shell git rev-parse --short=7 --verify HEAD)
 
+
 help:
 	@echo "build"
 	@echo "push"
