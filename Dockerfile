@@ -9,3 +9,4 @@ RUN mkdir executor/resources
 RUN pip install -U -r executor/requirements.txt
 RUN pip install executor/.
 RUN echo "alias run='python executor/src/executor/main.py'" >> ~/.bashrc
+RUN /bin/bash -c "source ~/.bashrc"
