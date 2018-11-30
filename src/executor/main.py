@@ -1,15 +1,10 @@
 import argparse
 from time import time
 import subprocess as sp
-import settings as s
+from executor import settings as s
 
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument("cmd", help="cmd", type=str)
-    args = parser.parse_args()
-    cmd = args.cmd
-
+def exec_job(cmd, logs_path):
     process = sp.Popen(cmd,
                        stdin=sp.PIPE,
                        stdout=sp.PIPE,
@@ -24,7 +19,7 @@ if __name__ == '__main__':
     out = out.decode('utf-8').split('\n') if out else out
     err = err.decode('utf-8').split('\n') if err else err
 
-    with open(s.LOGS_PATH, "a") as fp:
+    with open(logs_path, "a") as fp:
         if out:
             for o in out:
                 fp.write("%s\n" % o)
@@ -35,3 +30,13 @@ if __name__ == '__main__':
     # another alternative is check_output but can not allows to write in the files
     if process.returncode != 0:
         raise Exception(out)
+
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument("cmd", help="cmd", type=str)
+    args = parser.parse_args()
+    cmd = args.cmd
+
+    exec(cmd, s.LOGS_PATH)
