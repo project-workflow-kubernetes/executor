@@ -1,5 +1,5 @@
 import argparse
-from time import time
+import time
 import subprocess as sp
 from executor import settings as s
 
@@ -39,4 +39,4 @@ if __name__ == '__main__':
     args = parser.parse_args()
     cmd = args.cmd
 
-    exec(cmd, s.LOGS_PATH)
+    exec_job(cmd, s.LOGS_PATH)
